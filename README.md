@@ -7,6 +7,7 @@ A very functional system that works with its own queries, aiming to play the rol
 
 ## System functions:
 - Very simple design made with Bootstrap 5 and FontAwesome;
+- Fully integrated with phpBB;
 - Updates the servers every 5 minutes (this can be changed from the configuration file);
 - Add / Delete categories;
 - Detailed information on the server;
