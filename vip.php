@@ -35,27 +35,30 @@ if (isset($_POST['vip'])) {
 }
 ?>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
-<div class="container mt-5">
-    <div class="d-grid gap-2">
-        <a href="index.php" class="btn btn-outline-primary btn-lg">Начало</a>
-    </div>
-    <div class="display-4 mt-5 mb-3">V.I.P Реклама</div>
-    <hr/>
-
-    <div class="alert alert-primary text-center">Здравей, <b style="color: #<?php echo $bb_user_color; ?>"><?php echo $bb_username; ?></b>. Имаш <?php echo get_credits($bb_user_id); ?> кредита, за да направиш сървъра VIP е нужно <?php echo $addServCred; ?> кредита.</div>
-    <form method="POST">
-        <div class="input-group mb-3">
-            <label class="input-group-text">Сървър</label>
-            <select class="form-select" name="serv">
-                <?php while ($row = mysqli_fetch_assoc($getServers)) { ?>
-                    <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
-                <?php } ?>
-            </select>
-            <button type="submit" name="vip" class="btn btn-success">Направи</button>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
+    <div class="container mt-5">
+        <div class="d-grid gap-2">
+            <a href="index.php" class="btn btn-outline-primary btn-lg">Начало</a>
         </div>
-    </form>
-    <?php echo showMessage(); ?>
-</div>
+        <div class="display-4 mt-5 mb-3">V.I.P Реклама</div>
+        <hr/>
+        <?php if ($bb_is_anonymous) {
+            echo "<div class='alert alert-danger text-center'>Моля, влезте в акаунта си за да може да добавите сървъра с VIP статус</div>";
+        } else { ?>
+            <div class="alert alert-primary text-center">Здравей, <b style="color: #<?php echo $bb_user_color; ?>"><?php echo $bb_username; ?></b>. Имаш <?php echo get_credits($bb_user_id); ?> кредита, за да направиш сървъра VIP е нужно <?php echo $addServCred; ?> кредита.</div>
+            <form method="POST">
+                <div class="input-group mb-3">
+                    <label class="input-group-text">Сървър</label>
+                    <select class="form-select" name="serv">
+                        <?php while ($row = mysqli_fetch_assoc($getServers)) { ?>
+                            <option value="<?php echo $row['id']; ?>"><?php echo $row['name']; ?></option>
+                        <?php } ?>
+                    </select>
+                    <button type="submit" name="vip" class="btn btn-success">Направи</button>
+                </div>
+            </form>
+            <?php echo showMessage();
+        } ?>
+    </div>
 
 <?php sessionRemove("notifications"); ?>
